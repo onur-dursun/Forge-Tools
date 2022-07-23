@@ -23,7 +23,7 @@ namespace Whaleforge.Tools
 
         const float space = 10f;
         // Creates a new menu item 'Examples > Create Prefab' in the main menu.
-        [MenuItem("Window/RedTools/Prefab Creator")]
+        [MenuItem("ForgeTools/Prefab Creator")]
         public static void ShowWindow()
         {
             GetWindow(typeof(PrefabCreator));

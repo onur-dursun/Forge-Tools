@@ -9,7 +9,7 @@ namespace WhaleForge.Tools
     {
         public Vector3 translateVector;
 
-        [MenuItem("Window/RedTools/Translator")]
+        [MenuItem("ForgeTools/Translator")]
         public static void ShowWindow()
         {
             GetWindow(typeof(Translator));
