@@ -1,0 +1,14 @@
+{
+  "name": "com.whaleforge.tools.prefabcreator",
+  "version": "0.0.1",
+  "displayName": "Prefab Creator",
+  "description": "This is a tool for creating prefabs.",
+  "unity": "2020.3",
+ "keywords": [
+    "prefab, create"
+  ],
+  "author": {
+    "name": "Onur Dursun",
+    "email": "onur.dursun07@gmail.com"
+  }
+}
