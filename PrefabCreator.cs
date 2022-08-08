@@ -45,6 +45,7 @@ namespace Whaleforge.Tools
         {
             
             GUILayout.Label("Prefab oluşturmak istediğimiz klasörün adını giriyoruz. Örn: Props", EditorStyles.helpBox);
+            GUILayout.Label(folderPath);
             if (GUILayout.Button("Select Folder"))
             {
                 folderPath = EditorUtility.OpenFolderPanel("Select Directory", "", "");
@@ -111,6 +112,8 @@ namespace Whaleforge.Tools
 
             void CreatePrefab(string newFolderPath)
             {
+                Debug.Log("Folder Path: " + newFolderPath);
+
                 if (newFolderPath == null)
                     return;
 
@@ -149,7 +152,7 @@ namespace Whaleforge.Tools
 
                 GUI.skin.box.fontSize = 1;
                 //ShowNotification(new GUIContent());
-                notification = folderPath + " klasörünün içerisinde " + objs.Length + " tane prefab oluşturuldu.";
+                notification = newFolderPath + " klasörünün içerisinde " + objs.Length + " tane prefab oluşturuldu.";
             }
 
             bool IsSelectionValid()
