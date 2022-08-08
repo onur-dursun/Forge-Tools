@@ -14,7 +14,7 @@ namespace Whaleforge.Tools
     public class PrefabCreator : EditorWindow
     {
         [SerializeField] public float multiplier;
-        [SerializeField] public string folderName;
+        [SerializeField] public string folderPath;
         [SerializeField] public string packageName;
         [SerializeField] public Material mat;
         [SerializeField] public bool colliderBool;
@@ -36,18 +36,16 @@ namespace Whaleforge.Tools
                 return;
 
             mat = scriptableContainer.mat;
-            folderName = scriptableContainer.folderName;
+            folderPath = scriptableContainer.folderName;
             packageName = scriptableContainer.packageName;
             multiplier = scriptableContainer.multiplier;
         }
 
         void OnGUI()
         {
-            GUILayout.Label("Buraya üzerinde çalıştığımız paketin adını yazıyoruz öncelikle. Örn: Deneme Pack", EditorStyles.helpBox);
-            packageName = EditorGUILayout.TextField("Package Name", packageName);
-
+            
             GUILayout.Label("Sonra da prefab oluşturmak istediğimiz klasörün adını giriyoruz. Örn: Props", EditorStyles.helpBox);
-            folderName = EditorGUILayout.TextField("Folder Name", folderName);
+            folderPath = EditorUtility.OpenFolderPanel("Select Directory", "", "");
 
             GUILayout.Space(space);
             GUILayout.Label("Prefab oluştururken material de atamak istiyorsak material seçiyoruz.", EditorStyles.helpBox);
@@ -65,7 +63,7 @@ namespace Whaleforge.Tools
                 if (IsSelectionValid() && CheckStrings())
                     return;
 
-                CreatePrefab(CreatePath());
+                CreatePrefab(folderPath);
             }
 
             GUI.backgroundColor = Color.white;
@@ -91,19 +89,21 @@ namespace Whaleforge.Tools
                 AlignObjects(multiplier);
             }
 
+
+
             #region Local Funcs.
 
             string CreatePath()
             {
-                var assetPath = "Assets/RedWorks - LP " + packageName + "/Assets/Prefabs/";
-                string newFolderPath = assetPath + folderName + "/";
+                //var assetPath = "Assets/RedWorks - LP " + packageName + "/Assets/Prefabs/";
+                //string newFolderPath = assetPath + folderPath + "/";
 
-                if (!AssetDatabase.IsValidFolder(newFolderPath))
+                if (!AssetDatabase.IsValidFolder(folderPath))
                 {
-                    Directory.CreateDirectory(Path.GetDirectoryName(newFolderPath));
+                    Directory.CreateDirectory(Path.GetDirectoryName(folderPath));
                 }
 
-                return newFolderPath;
+                return folderPath;
             }
 
             void CreatePrefab(string newFolderPath)
@@ -143,7 +143,7 @@ namespace Whaleforge.Tools
 
                 GUI.skin.box.fontSize = 1;
                 //ShowNotification(new GUIContent());
-                notification = folderName + " klasörünün içerisinde " + objs.Length + " tane prefab oluşturuldu.";
+                notification = folderPath + " klasörünün içerisinde " + objs.Length + " tane prefab oluşturuldu.";
             }
 
             bool IsSelectionValid()
@@ -181,7 +181,7 @@ namespace Whaleforge.Tools
 
             bool CheckStrings()
             {
-                return packageName == null || packageName == "" || folderName == null || folderName == "";
+                return packageName == null || packageName == "" || folderPath == null || folderPath == "";
             }
 
             GUIStyle EditButton()
