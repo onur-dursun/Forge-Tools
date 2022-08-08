@@ -45,11 +45,12 @@ namespace Whaleforge.Tools
         {
             
             GUILayout.Label("Prefab oluşturmak istediğimiz klasörün adını giriyoruz. Örn: Props", EditorStyles.helpBox);
-            GUILayout.Label(folderPath);
+            GUILayout.Label(folderPath.Remove(folderPath.IndexOf("Assets") - "Assets".Length));
             if (GUILayout.Button("Select Folder"))
             {
                 folderPath = EditorUtility.OpenFolderPanel("Select Directory", "", "");
             }
+
             GUILayout.Space(space);
             GUILayout.Label("Prefab oluştururken material de atamak istiyorsak material seçiyoruz.", EditorStyles.helpBox);
             mat = (Material)EditorGUILayout.ObjectField("Material", mat, typeof(Material), false);
@@ -100,6 +101,7 @@ namespace Whaleforge.Tools
             {
                 //var assetPath = "Assets/RedWorks - LP " + packageName + "/Assets/Prefabs/";
                 string newFolderPath = folderPath.Remove(folderPath.IndexOf("Assets")-"Assets".Length);
+                Debug.Log("Folder Path: " + newFolderPath);
 
                 if (!AssetDatabase.IsValidFolder(newFolderPath))
                 {
