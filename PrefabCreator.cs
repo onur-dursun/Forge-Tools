@@ -36,7 +36,7 @@ namespace Whaleforge.Tools
                 return;
 
             mat = scriptableContainer.mat;
-            folderPath = "Assets";
+            folderPath = scriptableContainer.folderName;
             packageName = scriptableContainer.packageName;
             multiplier = scriptableContainer.multiplier;
         }
@@ -44,8 +44,7 @@ namespace Whaleforge.Tools
         void OnGUI()
         {
             
-            GUILayout.Label("Prefab oluşturmak istediğimiz klasörü seçiyoruz.", EditorStyles.helpBox);
-            GUILayout.Label("folderPath: " + folderPath);
+            GUILayout.Label("Prefab oluşturmak istediğimiz klasörün adını giriyoruz. Örn: Props", EditorStyles.helpBox);
             if (GUILayout.Button("Select Folder"))
             {
                 folderPath = EditorUtility.OpenFolderPanel("Select Directory", "", "");
@@ -66,7 +65,7 @@ namespace Whaleforge.Tools
                 if (IsSelectionValid() && CheckStrings())
                     return;
 
-                CreatePrefab(folderPath);
+                CreatePrefab(CreatePath());
             }
 
             GUI.backgroundColor = Color.white;
@@ -99,18 +98,22 @@ namespace Whaleforge.Tools
             string CreatePath()
             {
                 //var assetPath = "Assets/RedWorks - LP " + packageName + "/Assets/Prefabs/";
-                //string newFolderPath = assetPath + folderPath + "/";
+                string newFolderPath = folderPath.Remove(folderPath.IndexOf("Assets"));
 
-                if (!AssetDatabase.IsValidFolder(folderPath))
+                if (!AssetDatabase.IsValidFolder(newFolderPath))
                 {
-                    Directory.CreateDirectory(Path.GetDirectoryName(folderPath));
+                    Debug.LogError("Folder path is not valid!");
+                    return null;
                 }
 
-                return folderPath;
+                return newFolderPath;
             }
 
             void CreatePrefab(string newFolderPath)
             {
+                if (newFolderPath == null)
+                    return;
+
                 GameObject[] objs = Selection.gameObjects;
                 // Loop through every GameObject in the array above
                 foreach (GameObject g in objs)
