@@ -98,7 +98,7 @@ namespace Whaleforge.Tools
             string CreatePath()
             {
                 //var assetPath = "Assets/RedWorks - LP " + packageName + "/Assets/Prefabs/";
-                string newFolderPath = folderPath.Remove(folderPath.IndexOf("Assets"));
+                string newFolderPath = folderPath.Remove(folderPath.IndexOf("Assets")-"Assets".Length);
 
                 if (!AssetDatabase.IsValidFolder(newFolderPath))
                 {
