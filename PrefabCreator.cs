@@ -36,7 +36,7 @@ namespace Whaleforge.Tools
                 return;
 
             mat = scriptableContainer.mat;
-            folderPath = scriptableContainer.folderName;
+            folderPath = "Assets";
             packageName = scriptableContainer.packageName;
             multiplier = scriptableContainer.multiplier;
         }
@@ -44,7 +44,8 @@ namespace Whaleforge.Tools
         void OnGUI()
         {
             
-            GUILayout.Label("Prefab oluşturmak istediğimiz klasörün adını giriyoruz. Örn: Props", EditorStyles.helpBox);
+            GUILayout.Label("Prefab oluşturmak istediğimiz klasörü seçiyoruz.", EditorStyles.helpBox);
+            GUILayout.Label("folderPath: " + folderPath);
             if (GUILayout.Button("Select Folder"))
             {
                 folderPath = EditorUtility.OpenFolderPanel("Select Directory", "", "");
