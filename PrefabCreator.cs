@@ -44,9 +44,11 @@ namespace Whaleforge.Tools
         void OnGUI()
         {
             
-            GUILayout.Label("Sonra da prefab oluşturmak istediğimiz klasörün adını giriyoruz. Örn: Props", EditorStyles.helpBox);
-            folderPath = EditorUtility.OpenFolderPanel("Select Directory", "", "");
-
+            GUILayout.Label("Prefab oluşturmak istediğimiz klasörün adını giriyoruz. Örn: Props", EditorStyles.helpBox);
+            if (GUILayout.Button("Select Folder"))
+            {
+                folderPath = EditorUtility.OpenFolderPanel("Select Directory", "", "");
+            }
             GUILayout.Space(space);
             GUILayout.Label("Prefab oluştururken material de atamak istiyorsak material seçiyoruz.", EditorStyles.helpBox);
             mat = (Material)EditorGUILayout.ObjectField("Material", mat, typeof(Material), false);
